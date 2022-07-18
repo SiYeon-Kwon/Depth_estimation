@@ -21,7 +21,7 @@ def parse_command():
 
     import argparse
     parser = argparse.ArgumentParser(description='Sparse-to-Dense')
-    parser.add_argument('--arch', '-a', metavar='ARCH', default='mobilenet', choices=model_names,
+    parser.add_argument('--arch', '-a', metavar='ARCH', default='mobilenetskipconcat', choices=model_names,
                         help='model architecture: ' + ' | '.join(model_names) + ' (default: resnet18)')
     parser.add_argument('--data', metavar='DATA', default='custom',
                         choices=data_names,

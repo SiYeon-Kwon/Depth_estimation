@@ -12,24 +12,33 @@ class DepthDataset(torch.utils.data.Dataset):
         self.images = list(df['image'].values)
         self.labels = list(df['label'].values)
         
-        # load image
+        '''# load image
         random_sample_image = random.choice([i for i in range(len(self.images) - 1)])
         image = Image.open(self.images[random_sample_image])
-        depth = Image.open(self.labels[random_sample_image]).convert('RGB')
+        depth = Image.open(self.labels[random_sample_image])'''
         
-        plt.imshow(image)
-        plt.title("Image")
+        #load npy
+        
+        path = "/home/kwon/sparse/data/custom/train/"
+        file_list = os.listdir(path)
+        random_sample_image = random.choice([i for i in range(len(self.images) - 1)])
+        image = Image.open(self.images[random_sample_image])
+        depth = [file for file in file_list if file.endswith(".png.npy")]
+        image = np.array(image)
+        
+        #plt.imshow(image)
+        #plt.title("Image")
         #plt.show()
         
         # Denormaling Image
-        plt.imshow(np.asarray(depth) * 256)
-        plt.title("Depth")
+        #plt.imshow(np.asarray(depth) * 256)
+        #plt.title("Depth")
         #plt.show()
 
     def __getitem__(self, index):
         # load image
-        image = Image.open(self.images[index])
-        depth = Image.open(self.labels[index])
+        image = np.load(self.images[index])
+        depth = np.load(self.labels[index])
         
        
         # transformation
@@ -49,8 +58,8 @@ class DepthDataset(torch.utils.data.Dataset):
             transforms.Lambda(lambda x: torch.div(x, 65535.0)),
             #transforms.Normalize((0.5, ), (0.5, ))
         ])
-        image = image_trans(comm_trans(image))
-        depth = depth_trans(comm_trans(depth))
+        #image = image_trans(comm_trans(image))
+        #depth = depth_trans(comm_trans(depth))
         return image, depth
 
     def __len__(self):

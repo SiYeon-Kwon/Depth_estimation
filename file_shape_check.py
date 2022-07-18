@@ -3,7 +3,7 @@ import PIL
 import torchvision.transforms as transforms
 import numpy as np
 
-'''img = PIL.Image.open("/home/kwon/sparse/data/custom/depth/filename_time.struct_time(tm_year=2022, tm_mon=7, tm_mday=14, tm_hour=8, tm_min=34, tm_sec=29, tm_wday=3, tm_yday=195, tm_isdst=0).png")
+'''img = PIL.Image.open("/home/kwon/sparse/data/custom/image/filename_time.struct_time(tm_year=2022, tm_mon=7, tm_mday=18, tm_hour=5, tm_min=18, tm_sec=12, tm_wday=0, tm_yday=199, tm_isdst=0).jpg")
 numpyimg = np.array(img, dtype='f4')
 print(numpyimg)
 print(numpyimg.max())
@@ -17,7 +17,7 @@ print(img_t.max())
 print(img_t.size())'''
 
 #npy의 shape 찍기
-y = np.load('/home/kwon/sparse/data/custom/depth/filename_time.struct_time(tm_year=2022, tm_mon=7, tm_mday=15, tm_hour=0, tm_min=49, tm_sec=56, tm_wday=4, tm_yday=196, tm_isdst=0).png.npy')
+y = np.load('/home/kwon/sparse/data/custom/depth/filename_time.struct_time(tm_year=2022, tm_mon=7, tm_mday=18, tm_hour=5, tm_min=18, tm_sec=13, tm_wday=0, tm_yday=199, tm_isdst=0).png.npy', allow_pickle=True)
 npy = np.array(y, dtype='f4')
 print(npy)
 print(npy.shape)

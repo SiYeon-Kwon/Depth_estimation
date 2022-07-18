@@ -5,6 +5,7 @@ import cv2
 import time
 from matplotlib import pyplot as plt
 import cmapy
+from PIL import Image
 
 help_string = "[s] Save side by side image [d] Save Depth, [n] Change Depth format, [p] Save Point Cloud, [m] Change Point Cloud format, [q] Quit"
 prefix_point_cloud = "Cloud_"
@@ -145,7 +146,7 @@ def main() :
     image_size.height = image_size.height /2
 
     # Declare your sl.Mat matrices
-    image_zed = sl.Mat(image_size.width, image_size.height, sl.MAT_TYPE.U8_C4)
+    image_zed = sl.Mat(image_size.width, image_size.height, sl.MAT_TYPE.U8_C3)
     depth_image_zed = sl.Mat(image_size.width, image_size.height, sl.MAT_TYPE.U8_C1)
     point_cloud = sl.Mat()
 
@@ -164,13 +165,17 @@ def main() :
             # It returns a numpy array that can be used as a matrix with opencv
             image_ocv = image_zed.get_data()
             depth_image_ocv = depth_image_zed.get_data()
-            depth_image_ocv = depth_image_ocv*70
-            a = plt.imshow(depth_image_ocv)
+            #a = plt.imshow(depth_image_ocv)
+            #b = plt.imshow(image_ocv)
+            x = np.array(depth_image_ocv)
+            y = np.array(image_ocv)
+            print(x.shape)
+            print(y.shape)
             
             #print(depth_image_ocv.shape)
             
             #이미지 처리
-            '''for i in range(0,100):
+            for i in range(0,100):
              img_name = 'filename_{}.jpg'.format(time.gmtime())
              depth_img_name = 'filename_{}.png'.format(time.gmtime())
              save_path_image = '/home/kwon/sparse/data/custom/image/'
@@ -178,7 +183,7 @@ def main() :
              #cv2.imwrite("/home/kwon/datasets/5.jpg", image_ocv)
              #cv2.imwrite("/home/kwon/datasets/5.png", depth_image_ocv)
              cv2.imwrite(save_path_image + img_name, image_ocv)
-             cv2.imwrite(save_path_depth + depth_img_name, depth_image_ocv)'''
+             #cv2.imwrite(save_path_depth + depth_img_name, depth_image_ocv)
              
              #배열처리
             for i in range(0,100):
@@ -186,9 +191,8 @@ def main() :
                 depth_img_name = 'filename_{}.png'.format(time.gmtime())
                 save_path_image = '/home/kwon/sparse/data/custom/image/'
                 save_path_depth = '/home/kwon/sparse/data/custom/depth/'
-                x = np.array(a)
-                print(a)
                 np.save(save_path_depth + depth_img_name, x)
+                #np.save(save_path_image + img_name, y)
              
             '''plt.clf()
              plt.imshow(depth_image_ocv)

@@ -106,6 +106,7 @@ dataset_train = DepthDataset(train)
 
 lengths = [int(math.floor(len(train) * 0.8)), int(math.ceil(len(train) * 0.2))]
 train_dataset, test_dataset = torch.utils.data.random_split(dataset_train, lengths)
+print(test_dataset)
 
 global train_loader
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,

@@ -21,10 +21,12 @@ class DepthDataset(torch.utils.data.Dataset):
         
         path = "/home/kwon/sparse/data/custom/train/"
         file_list = os.listdir(path)
-        random_sample_image = random.choice([i for i in range(len(self.images) - 1)])
-        image = Image.open(self.images[random_sample_image])
+        #random_sample_image = random.choice([i for i in range(len(self.images) - 1)])
+        #image = Image.open(self.images[random_sample_image])
+        image = [file for file in file_list if file.endswith(".jpg.npy")]
         depth = [file for file in file_list if file.endswith(".png.npy")]
-        image = np.array(image)
+        self.image = np.array(image)
+        self.depth = np.array(depth)
         
         #plt.imshow(image)
         #plt.title("Image")
@@ -37,8 +39,9 @@ class DepthDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         # load image
-        image = np.load(self.images[index])
-        depth = np.load(self.labels[index])
+        #image = np.load(self.images[index], allow_pickle=True)
+        image = self.image
+        depth = self.depth
         
        
         # transformation
@@ -56,10 +59,12 @@ class DepthDataset(torch.utils.data.Dataset):
             transforms.ToTensor(),
             transforms.Lambda(lambda x: x.float()),
             transforms.Lambda(lambda x: torch.div(x, 65535.0)),
-            #transforms.Normalize((0.5, ), (0.5, ))
+            transforms.Normalize((0.5, ), (0.5, ))
         ])
         #image = image_trans(comm_trans(image))
         #depth = depth_trans(comm_trans(depth))
+        image = image
+        depth = depth
         return image, depth
 
     def __len__(self):

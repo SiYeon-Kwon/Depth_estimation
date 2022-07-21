@@ -4,7 +4,6 @@ import pyzed.sl as sl
 import cv2
 import time
 from matplotlib import pyplot as plt
-import cmapy
 from PIL import Image
 
 help_string = "[s] Save side by side image [d] Save Depth, [n] Change Depth format, [p] Save Point Cloud, [m] Change Point Cloud format, [q] Quit"

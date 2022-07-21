@@ -123,7 +123,7 @@ def main() :
         input_type.set_from_svo_file(sys.argv[1])
     init = sl.InitParameters(input_t=input_type)
     init.camera_resolution = sl.RESOLUTION.HD1080
-    init.depth_mode = sl.DEPTH_MODE.ULTRA
+    init.depth_mode = sl.DEPTH_MODE.NEURAL
     init.coordinate_units = sl.UNIT.METER
 
     # Open the camera
@@ -138,7 +138,7 @@ def main() :
 
     # Set runtime parameters after opening the camera
     runtime = sl.RuntimeParameters()
-    runtime.sensing_mode = sl.SENSING_MODE.STANDARD
+    runtime.sensing_mode = sl.SENSING_MODE.FILL
 
     # Prepare new image size to retrieve half-resolution images
     image_size = zed.get_camera_information().camera_resolution
@@ -178,8 +178,8 @@ def main() :
             for i in range(0,100):
              img_name = 'filename_{}.jpg'.format(time.gmtime())
              depth_img_name = 'filename_{}.png'.format(time.gmtime())
-             save_path_image = '/home/kwon/sparse/data/custom/image/'
-             save_path_depth = '/home/kwon/sparse/data/custom/depth/'
+             save_path_image = '/home/kwon/sparse/data/custom/merge/'
+             save_path_depth = '/home/kwon/sparse/data/custom/merge/'
              #cv2.imwrite("/home/kwon/datasets/5.jpg", image_ocv)
              #cv2.imwrite("/home/kwon/datasets/5.png", depth_image_ocv)
              cv2.imwrite(save_path_image + img_name, image_ocv)
@@ -193,6 +193,7 @@ def main() :
                 save_path_depth = '/home/kwon/sparse/data/custom/depth/'
                 np.save(save_path_depth + depth_img_name, x)
                 #np.save(save_path_image + img_name, y)
+
              
             '''plt.clf()
              plt.imshow(depth_image_ocv)
@@ -217,17 +218,19 @@ def main() :
                 cap.release()
                 out.release()'''
 
-            cv2.imshow("Image", image_ocv)
-            cv2.imshow("Depth", depth_image_ocv)
-            #plt.subplot(121),plt.imshow(depth_image_ocv)
-            #plt.subplot(122),plt.imshow(denoise_depth)
-            #plt.show()
+            #cv2.imshow("Image", image_ocv)
+            #cv2.imshow("Depth", depth_image_ocv)
+            plt.imshow(depth_image_ocv)
+            plt.show(block=False)
+            plt.pause(0.1)
+            plt.close()
 
             key = cv2.waitKey(1)
 
             process_key_event(zed, key)
-
-    cv2.destroyAllWindows()
+    
+    
+    #cv2.destroyAllWindows()
     zed.close()
 
     print("\nFINISH")

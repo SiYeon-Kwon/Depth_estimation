@@ -173,8 +173,8 @@ def main():
         elif args.arch == 'mobilenetskipconcat':
             model = MobileNetSkipConcat(output_size=16)
         print("=> model created.")
-        optimizer = torch.optim.SGD(model.parameters(), args.lr, \
-            momentum=args.momentum, weight_decay=args.weight_decay)
+        #optimizer = torch.optim.SGD(model.parameters(), args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
+        optimizer = torch.optim.Adam(model.parameters(), args.lr, weight_decay=args.weight_decay)
 
         model = torch.nn.DataParallel(model).cuda() # for multi-gpu training
         model = model.cuda()
@@ -240,9 +240,6 @@ def train(train_loader, model, criterion, optimizer, epoch):
         # compute pred
         end = time.time()
         pred = model(input)
-        print(target.shape)
-        print(pred.shape)
-        print(len(target.shape))
         loss = criterion(pred, target)
         optimizer.zero_grad()
         loss.backward() # compute gradient and do SGD step

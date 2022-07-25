@@ -180,7 +180,7 @@ def main() :
              depth_img_name = 'filename_{}.png'.format(time.gmtime())
              save_path_image = '/home/kwon/sparse/data/custom/merge/'
              save_path_depth = '/home/kwon/sparse/data/custom/merge/'
-             #cv2.imwrite(save_path_image + img_name, image_ocv)
+             cv2.imwrite(save_path_image + img_name, image_ocv)
              
              #배열처리
             for i in range(0,100):
@@ -188,7 +188,7 @@ def main() :
                 depth_img_name = 'filename_{}.png'.format(time.gmtime())
                 save_path_image = '/home/kwon/sparse/data/custom/image/'
                 save_path_depth = '/home/kwon/sparse/data/custom/depth/'
-                #np.save(save_path_depth + depth_img_name, x)
+                np.save(save_path_depth + depth_img_name, x)
 
              
             '''plt.clf()

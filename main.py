@@ -106,7 +106,6 @@ dataset_train = DepthDataset(train)
 
 lengths = [int(math.floor(len(train) * 0.8)), int(math.ceil(len(train) * 0.2))]
 train_dataset, test_dataset = torch.utils.data.random_split(dataset_train, lengths)
-print(test_dataset)
 
 global train_loader
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
@@ -173,8 +172,8 @@ def main():
         elif args.arch == 'mobilenetskipconcat':
             model = MobileNetSkipConcat(output_size=16)
         print("=> model created.")
-        #optimizer = torch.optim.SGD(model.parameters(), args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
-        optimizer = torch.optim.Adam(model.parameters(), args.lr, weight_decay=args.weight_decay)
+        optimizer = torch.optim.SGD(model.parameters(), args.lr, \
+            momentum=args.momentum, weight_decay=args.weight_decay)
 
         model = torch.nn.DataParallel(model).cuda() # for multi-gpu training
         model = model.cuda()
@@ -240,6 +239,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
         # compute pred
         end = time.time()
         pred = model(input)
+        print(target.shape)
+        print(pred.shape)
+        print(len(target.shape))
         loss = criterion(pred, target)
         optimizer.zero_grad()
         loss.backward() # compute gradient and do SGD step

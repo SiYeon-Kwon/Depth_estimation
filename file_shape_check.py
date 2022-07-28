@@ -42,3 +42,12 @@ torch_file = torch.from_numpy(file)
 print(torch_file)
 print(torch_file.max())
 print(torch_file.size())'''
+
+#file의 NaN값 존재여부 확인
+'''y = np.load('/home/kwon/sparse/data/custom/depth/filename_time.struct_time(tm_year=2022, tm_mon=7, tm_mday=28, tm_hour=1, tm_min=39, tm_sec=49, tm_wday=3, tm_yday=209, tm_isdst=0).png.npy', allow_pickle=True)
+npy = np.array(y, dtype='f4')
+#plt.imshow(npy)
+print(np.isnan(npy).sum())
+print(np.isinf(npy).sum())
+print(npy)
+print(npy.shape)'''

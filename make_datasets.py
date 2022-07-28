@@ -124,7 +124,7 @@ def main() :
     init.camera_resolution = sl.RESOLUTION.VGA
     init.depth_mode = sl.DEPTH_MODE.NEURAL
     init.coordinate_units = sl.UNIT.METER
-    init.depth_minimum_distance = 0
+    init.depth_minimum_distance = 0.2
 
     # Open the camera
     err = zed.open(init)
